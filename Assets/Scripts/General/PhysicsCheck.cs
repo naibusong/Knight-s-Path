@@ -5,9 +5,14 @@ using UnityEngine;
 public class PhysicsCheck : MonoBehaviour
 {
     public Vector2 bottomOffset;
-    public bool isGround;
+    public Vector2 leftOffset;
+    public Vector2 rightOffset;
     public float checkRaduis;
     public LayerMask groundLayer;
+    [Header("×´Ì¬")]
+    public bool isGround;
+    public bool touLeftWall;
+    public bool touRightWall;
     private void Update()
     {
         Check();
@@ -16,11 +21,16 @@ public class PhysicsCheck : MonoBehaviour
     {
         //µØÃæ¼ì²â
         isGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, checkRaduis,groundLayer);
+        //Ç½±Ú¼ì²â
+        touLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, checkRaduis, groundLayer);
+        touRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, checkRaduis, groundLayer);
     }
 
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere((Vector2)transform.position + bottomOffset, checkRaduis);
+        Gizmos.DrawWireSphere((Vector2)transform.position + leftOffset, checkRaduis);
+        Gizmos.DrawWireSphere((Vector2)transform.position + rightOffset, checkRaduis);
     }
 }

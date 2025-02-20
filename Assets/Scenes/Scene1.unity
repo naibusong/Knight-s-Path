@@ -132,10 +132,11 @@ GameObject:
   - component: {fileID: 16388836}
   - component: {fileID: 16388831}
   - component: {fileID: 16388835}
+  - component: {fileID: 16388839}
   - component: {fileID: 16388838}
   - component: {fileID: 16388837}
   - component: {fileID: 16388840}
-  - component: {fileID: 16388839}
+  - component: {fileID: 16388841}
   m_Layer: 8
   m_Name: Boar
   m_TagString: Enemy
@@ -252,7 +253,7 @@ Transform:
   m_GameObject: {fileID: 16388830}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.567109, y: -0.94, z: 0}
+  m_LocalPosition: {x: -3.26, y: -0.94, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -292,8 +293,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.19840714, y: 0.6472652}
-  m_Size: {x: 2.2725108, y: 1.2945455}
+  m_Offset: {x: -0.14838284, y: 0.63654387}
+  m_Size: {x: 2.0152445, y: 1.2731103}
   m_Direction: 1
 --- !u!50 &16388836
 Rigidbody2D:
@@ -349,17 +350,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a0a62001bb2a2f46a0059f4330faccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 15
   currentHealth: 0
   untouchableTime: 1
   untouchableCounter: 0
   untouchable: 0
   OnTakeDamage:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 16388840}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: OnTakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDead:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 16388840}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: OnDie
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &16388839
 Animator:
   serializedVersion: 7
@@ -398,6 +423,35 @@ MonoBehaviour:
   chaseSpeed: 220
   currentSpeed: 0
   faceDir: {x: 0, y: 0, z: 0}
+  attacker: {fileID: 0}
+  hurtForce: 6
+  waitTime: 2
+  waitTimeCounter: 0
+  wait: 0
+  isHurt: 0
+  isDead: 0
+--- !u!114 &16388841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16388830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea15301ca701e9c48bb16c58fe536ed1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bottomOffset: {x: -1.04, y: 0.12}
+  leftOffset: {x: 0.82, y: 0.64}
+  rightOffset: {x: -1.15, y: 0.63}
+  checkRaduis: 0.08
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  isGround: 0
+  touLeftWall: 0
+  touRightWall: 0
 --- !u!1 &49777829
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,7 +541,7 @@ Transform:
   m_GameObject: {fileID: 49777829}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.09, y: -0.9, z: 0}
+  m_LocalPosition: {x: -7.47, y: 3.42, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -669,11 +723,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottomOffset: {x: -0.06, y: 0}
-  isGround: 0
+  leftOffset: {x: -0.49, y: 0.87}
+  rightOffset: {x: 0.38, y: 0.88}
   checkRaduis: 0.05
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  isGround: 0
+  touLeftWall: 0
+  touRightWall: 0
 --- !u!114 &49777837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3462,7 +3520,7 @@ CompositeCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
