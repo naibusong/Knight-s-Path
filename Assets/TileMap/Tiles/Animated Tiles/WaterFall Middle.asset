@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: WaterFall Middle
   m_EditorClassIdentifier: 
   m_AnimatedSprites:
-  - {fileID: -5423531, guid: bc090feb59d5d8549a46ed6c8a7bb69f, type: 3}
-  - {fileID: -1280451323, guid: bc090feb59d5d8549a46ed6c8a7bb69f, type: 3}
-  - {fileID: -1562862477, guid: bc090feb59d5d8549a46ed6c8a7bb69f, type: 3}
-  - {fileID: -820571897, guid: bc090feb59d5d8549a46ed6c8a7bb69f, type: 3}
+  - {fileID: 53884124, guid: bc090feb59d5d8549a46ed6c8a7bb69f, type: 3}
+  - {fileID: 890995366, guid: bc090feb59d5d8549a46ed6c8a7bb69f, type: 3}
+  - {fileID: 755085827, guid: bc090feb59d5d8549a46ed6c8a7bb69f, type: 3}
+  - {fileID: -1894117436, guid: bc090feb59d5d8549a46ed6c8a7bb69f, type: 3}
   m_MinSpeed: 10
   m_MaxSpeed: 10
   m_AnimationStartTime: 0
