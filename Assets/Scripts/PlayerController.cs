@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,15 +6,22 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    private Rigidbody2D rb;
     public PlayerInputControl inputControl;
     public Vector2 inputDirection;
+    public PhysicsCheck physicscheck;
+    [Header("基本参数")]
     public float speed;
-    private Rigidbody2D rb;
+    public float jumpForce;
     private void Awake()
     {
         inputControl = new PlayerInputControl();
         rb = GetComponent<Rigidbody2D>();
+        physicscheck = GetComponent<PhysicsCheck>();
+        inputControl.GamePlay.Jump.started += Jump;
+        
     }
+
 
     private void OnEnable()
     {
@@ -33,6 +41,13 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
+
+    }
+
+    //测试
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        Debug.Log("1");
     }
     public void Move()
     {
@@ -45,5 +60,11 @@ public class PlayerController : MonoBehaviour
             faceDir = 1;
         //人物翻转
         transform.localScale = new Vector3(faceDir, 1, 1);
+    }
+    private void Jump(InputAction.CallbackContext context)
+    {
+        //Debug.Log("jump");
+        if(physicscheck.isGround)
+            rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);//瞬时的力
     }
 }
