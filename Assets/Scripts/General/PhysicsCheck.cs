@@ -18,6 +18,7 @@ public class PhysicsCheck : MonoBehaviour
         isGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, checkRaduis,groundLayer);
     }
 
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere((Vector2)transform.position + bottomOffset, checkRaduis);

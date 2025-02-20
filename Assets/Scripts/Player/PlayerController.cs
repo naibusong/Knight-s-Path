@@ -10,18 +10,26 @@ public class PlayerController : MonoBehaviour
     public PlayerInputControl inputControl;
     public Vector2 inputDirection;
     public PhysicsCheck physicscheck;
+    private PlayerAnimation playerAnimation;
     [Header("基本参数")]
     public float speed;
     public float jumpForce;
+    public float hurtForcr;
+    [Header("状态")]
+    public bool isHurt;
+    public bool isDead;
+    public bool isAttack;
     private void Awake()
     {
         inputControl = new PlayerInputControl();
         rb = GetComponent<Rigidbody2D>();
         physicscheck = GetComponent<PhysicsCheck>();
         inputControl.GamePlay.Jump.started += Jump;
-        
+        inputControl.GamePlay.Attack.started += PlayerAttack;
+        playerAnimation = GetComponent<PlayerAnimation>();
     }
 
+    
 
     private void OnEnable()
     {
@@ -40,15 +48,11 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        if(!isHurt)
+            Move();
 
     }
 
-    //测试
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        Debug.Log("1");
-    }
     public void Move()
     {
         rb.velocity = new Vector2(inputDirection.x * speed * Time.deltaTime, rb.velocity.y);
@@ -67,4 +71,30 @@ public class PlayerController : MonoBehaviour
         if(physicscheck.isGround)
             rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);//瞬时的力
     }
+
+    //攻击
+    private void PlayerAttack(InputAction.CallbackContext context)
+    {
+        playerAnimation.PlayAttack();
+        isAttack = true;
+    }
+
+
+    #region UnityEvent
+    public void OnHurt(Transform attaker)
+    {
+        isHurt = true;
+        rb.velocity = Vector2.zero;
+        Vector2 dir = new Vector2((transform.position.x - attaker.position.x),0).normalized;//归一化，只在0-1之间
+        rb.AddForce(dir * hurtForcr, ForceMode2D.Impulse);
+    }
+
+    public void PlayerDead()
+    {
+        isDead = true;
+        inputControl.GamePlay.Disable();
+
+    }
+    #endregion
 }
+
