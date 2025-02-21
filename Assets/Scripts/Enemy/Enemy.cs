@@ -5,8 +5,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     protected Rigidbody2D rb;
-    protected Animator anim;
-    PhysicsCheck physicscheck;
+    public Animator anim;
+    public PhysicsCheck physicscheck;
     [Header("基本参数")]
     public float normalSpeed;
     public float chaseSpeed;
@@ -22,32 +22,45 @@ public class Enemy : MonoBehaviour
     public bool isHurt;
     public bool isDead;
 
-    private void Awake()
+    private BaseState currentState;
+    protected BaseState potrolState;
+    protected BaseState chaseState;
+
+    protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         physicscheck = GetComponent<PhysicsCheck>();
         currentSpeed = normalSpeed;
+
+    }
+
+    private void OnEnable()//激活时
+    {
+        currentState = potrolState;//进入巡逻状态
+        currentState.OnEnter(this);
+    }
+
+    private void OnDisable()//关闭时
+    {
+        currentState.OnExit();
     }
 
     private void Update()
     {
         faceDir = new Vector3(-transform.localScale.x, 0, 0);
-        if ((physicscheck.touLeftWall && faceDir.x>0) || (physicscheck.touRightWall && faceDir.x<0))
-        {
-            wait = true;
-            anim.SetBool("walk", false);//碰墙激活idle动画
-        }
+        
+        currentState.LogicUpdate();
         TimeCounter();
-
     }
 
     private void FixedUpdate()
     {
-        if(!isHurt & !isDead)
+        if(!isHurt && !isDead && !wait)
             Move();
+        currentState.PhysicsUpdate();
     }
-    public virtual void Move()//虚拟的，子类可以访问修改
+    public virtual void Move()//virtual虚拟的，子类可以访问修改
     {
         rb.velocity = new Vector2(faceDir.x * currentSpeed * Time.deltaTime, rb.velocity.y);
     }
