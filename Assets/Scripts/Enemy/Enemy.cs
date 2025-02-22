@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D),typeof(Animator),typeof(PhysicsCheck))]
 public class Enemy : MonoBehaviour
 {
-    protected Rigidbody2D rb;
+    public Rigidbody2D rb;
     public Animator anim;
     public PhysicsCheck physicscheck;
     [Header("基本参数")]
@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     public Vector3 faceDir;
     public Transform attacker;
     public float hurtForce;
+    public Vector3 spwanPoint;//出生点坐标
     [Header("计时器")]
     public float waitTime;
     public float waitTimeCounter;
@@ -44,7 +45,7 @@ public class Enemy : MonoBehaviour
         anim = GetComponent<Animator>();
         physicscheck = GetComponent<PhysicsCheck>();
         currentSpeed = normalSpeed;
-
+        spwanPoint = transform.position;//出生点等于初始坐标
     }
 
     private void OnEnable()//激活时
@@ -98,7 +99,7 @@ public class Enemy : MonoBehaviour
         }
         
     }
-    public bool FoundPlayer()//发现玩家
+    public virtual bool FoundPlayer()//发现玩家
     {
         return Physics2D.BoxCast(transform.position + (Vector3)centerOffset, checkSize, 0, faceDir, checkDis, attackLayer);
     }
@@ -116,6 +117,11 @@ public class Enemy : MonoBehaviour
         currentState.OnExit();
         currentState = newState;
         currentState.OnEnter(this);
+    }
+
+    public virtual Vector3 GetNewPoint()
+    {
+        return transform.position;
     }
     #region 事件函数
     public void OnTakeDamage(Transform attackerTrans)
@@ -154,7 +160,7 @@ public class Enemy : MonoBehaviour
     }
     #endregion
 
-    private void OnDrawGizmos()
+    public virtual void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position + (Vector3)centerOffset+ new Vector3(checkDis*-transform.localScale.x,0), 0.2f);
     }
