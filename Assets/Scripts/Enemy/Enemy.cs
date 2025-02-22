@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
     private BaseState currentState;
     protected BaseState potrolState;
     protected BaseState chaseState;
+    protected BaseState skillState;
 
 
     #region 周期函数
@@ -74,7 +75,7 @@ public class Enemy : MonoBehaviour
     #endregion
     public virtual void Move()//virtual虚拟的，子类可以访问修改
     {
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("preMove"))
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("preMove") && !anim.GetCurrentAnimatorStateInfo(0).IsName("recover"))
             rb.velocity = new Vector2(faceDir.x * currentSpeed * Time.deltaTime, rb.velocity.y);
     }
 
@@ -91,14 +92,11 @@ public class Enemy : MonoBehaviour
                 transform.localScale = new Vector3(faceDir.x, 1, 1);
             }
         }
-        if (!FoundPlayer())
+        if (!FoundPlayer() && lostTimeCounter >=0)
         {
             lostTimeCounter -= Time.deltaTime;
         }
-        else
-        {
-            lostTimeCounter = lostTime;
-        }
+        
     }
     public bool FoundPlayer()//发现玩家
     {
@@ -111,6 +109,7 @@ public class Enemy : MonoBehaviour
         {
             NPCState.Potrol => potrolState,
             NPCState.Chase => chaseState,
+            NPCState.Skill => skillState,
             _ => null
         };
 

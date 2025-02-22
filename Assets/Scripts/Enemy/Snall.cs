@@ -8,5 +8,6 @@ public class Snall : Enemy
     {
         base.Awake();
         potrolState = new SnallPotrolUpdate();
+        skillState = new SnallSkillState();
     }
 }

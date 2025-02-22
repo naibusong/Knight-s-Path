@@ -40,9 +40,9 @@ public class Character : MonoBehaviour
         if (currentHealth - attaker.damage > 0)
         {
             currentHealth -= attaker.damage;
-            TriggerUntouchable();
             //÷¥–– ‹…À
             OnTakeDamage?.Invoke(attaker.transform);
+            TriggerUntouchable();
         }
         else
         {

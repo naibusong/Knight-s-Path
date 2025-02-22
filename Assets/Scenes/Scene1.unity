@@ -1063,7 +1063,7 @@ GameObject:
   - component: {fileID: 133633193}
   - component: {fileID: 133633194}
   - component: {fileID: 133633195}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Attack3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1166,7 +1166,7 @@ GameObject:
   - component: {fileID: 161810486}
   - component: {fileID: 161810487}
   - component: {fileID: 161810488}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Attack2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1562,7 +1562,7 @@ GameObject:
   - component: {fileID: 315567975}
   - component: {fileID: 315567977}
   - component: {fileID: 315567976}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Attack1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3984,10 +3984,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a0a62001bb2a2f46a0059f4330faccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 10
   currentHealth: 0
   untouchableTime: 0
-  untouchableCounter: 0
+  untouchableCounter: 0.1
   untouchable: 0
   OnTakeDamage:
     m_PersistentCalls:
@@ -3995,10 +3995,10 @@ MonoBehaviour:
       - m_Target: {fileID: 656282895}
         m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
         m_MethodName: OnTakeDamage
-        m_Mode: 2
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4793,7 +4793,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1782453178}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Attack Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
