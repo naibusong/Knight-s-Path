@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//每个敌人都共有的组件，提高效率
+[RequireComponent(typeof(Rigidbody2D),typeof(Animator),typeof(PhysicsCheck))]
 public class Enemy : MonoBehaviour
 {
     protected Rigidbody2D rb;
@@ -18,14 +20,23 @@ public class Enemy : MonoBehaviour
     public float waitTime;
     public float waitTimeCounter;
     public bool wait;
+    public float lostTime;
+    public float lostTimeCounter;
     [Header("状态")]
     public bool isHurt;
     public bool isDead;
+    [Header("检测")]
+    public Vector2 centerOffset;
+    public Vector2 checkSize;
+    public float checkDis;
+    public LayerMask attackLayer;
 
     private BaseState currentState;
     protected BaseState potrolState;
     protected BaseState chaseState;
 
+
+    #region 周期函数
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -60,6 +71,7 @@ public class Enemy : MonoBehaviour
             Move();
         currentState.PhysicsUpdate();
     }
+    #endregion
     public virtual void Move()//virtual虚拟的，子类可以访问修改
     {
         rb.velocity = new Vector2(faceDir.x * currentSpeed * Time.deltaTime, rb.velocity.y);
@@ -78,7 +90,34 @@ public class Enemy : MonoBehaviour
                 transform.localScale = new Vector3(faceDir.x, 1, 1);
             }
         }
+        if (!FoundPlayer())
+        {
+            lostTimeCounter -= Time.deltaTime;
+        }
+        else
+        {
+            lostTimeCounter = lostTime;
+        }
     }
+    public bool FoundPlayer()//发现玩家
+    {
+        return Physics2D.BoxCast(transform.position + (Vector3)centerOffset, checkSize, 0, faceDir, checkDis, attackLayer);
+    }
+
+    public void SwitchState(NPCState state)//状态切换，枚举
+    {
+        var newState = state switch
+        {
+            NPCState.Potrol => potrolState,
+            NPCState.Chase => chaseState,
+            _ => null
+        };
+
+        currentState.OnExit();
+        currentState = newState;
+        currentState.OnEnter(this);
+    }
+    #region 事件函数
     public void OnTakeDamage(Transform attackerTrans)
     {
         attacker = attackerTrans;
@@ -90,6 +129,7 @@ public class Enemy : MonoBehaviour
         //击退效果
         isHurt = true;
         anim.SetBool("hurt", true);
+        rb.velocity =new Vector2(0, rb.velocity.y);
         Vector2 dir = new Vector2(transform.position.x - attackerTrans.position.x, 0).normalized;
         StartCoroutine(OnHurt(dir));
     }
@@ -111,5 +151,11 @@ public class Enemy : MonoBehaviour
     public void DestoryAfterAnimation()
     {
         Destroy(this);
+    }
+    #endregion
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position + (Vector3)centerOffset+ new Vector3(checkDis*-transform.localScale.x,0), 0.2f);
     }
 }
