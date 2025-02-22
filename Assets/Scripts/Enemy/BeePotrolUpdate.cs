@@ -25,7 +25,7 @@ public class BeePotrolUpdate : BaseState
             target = currentEnemy.GetNewPoint() ;
         }
 
-        moveDir = (target - currentEnemy.transform.position).normalized;
+        moveDir = (target - currentEnemy.transform.position).normalized;//·­×ª
 
         if (moveDir.x > 0)
             currentEnemy.transform.localScale = new Vector3(1, 1, 1);

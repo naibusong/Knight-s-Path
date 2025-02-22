@@ -149,6 +149,7 @@ public class Enemy : MonoBehaviour
 
     public void OnDie()
     {
+        rb.velocity = Vector2.zero;
         gameObject.layer = 2;
         isDead = true;
         anim.SetBool("dead", true);
