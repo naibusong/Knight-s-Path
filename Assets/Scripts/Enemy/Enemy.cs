@@ -74,7 +74,8 @@ public class Enemy : MonoBehaviour
     #endregion
     public virtual void Move()//virtual虚拟的，子类可以访问修改
     {
-        rb.velocity = new Vector2(faceDir.x * currentSpeed * Time.deltaTime, rb.velocity.y);
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("preMove"))
+            rb.velocity = new Vector2(faceDir.x * currentSpeed * Time.deltaTime, rb.velocity.y);
     }
 
     //计时器
