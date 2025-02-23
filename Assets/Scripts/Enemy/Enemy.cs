@@ -45,6 +45,7 @@ public class Enemy : MonoBehaviour
         anim = GetComponent<Animator>();
         physicscheck = GetComponent<PhysicsCheck>();
         currentSpeed = normalSpeed;
+        waitTimeCounter = waitTime;
         spwanPoint = transform.position;//出生点等于初始坐标
     }
 
