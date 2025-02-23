@@ -28,6 +28,7 @@ public class PlayerAnimation : MonoBehaviour
         anim.SetBool("isGround", physicsCheck.isGround);
         anim.SetBool("isDead", playerController.isDead);
         anim.SetBool("isAttack", playerController.isAttack);
+        anim.SetBool("onWall", physicsCheck.OnWall);    
     }
 
     public void PlayHurt()

@@ -15,10 +15,12 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float jumpForce;
     public float hurtForcr;
+    public float wallSlideForce;
     [Header("×´Ì¬")]
     public bool isHurt;
     public bool isDead;
     public bool isAttack;
+    public bool wallJump;
     private void Awake()
     {
         inputControl = new PlayerInputControl();
@@ -50,12 +52,15 @@ public class PlayerController : MonoBehaviour
     {
         if(!isHurt)
             Move();
-
+        CheckState();
     }
 
     public void Move()
     {
-        rb.velocity = new Vector2(inputDirection.x * speed * Time.deltaTime, rb.velocity.y);
+        if (!wallJump)
+        {
+            rb.velocity = new Vector2(inputDirection.x * speed * Time.deltaTime, rb.velocity.y);
+        }
         int faceDir = (int) transform .localScale.x;
 
         if(inputDirection.x < 0)
@@ -70,6 +75,11 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("jump");
         if(physicscheck.isGround)
             rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);//Ë²Ê±µÄÁ¦
+        if (physicscheck.OnWall)
+        {
+            rb.AddForce(new Vector2(-inputDirection.x, 2.5f) * wallSlideForce, ForceMode2D.Impulse);
+            wallJump = true;
+        }
     }
 
     //¹¥»÷
@@ -96,5 +106,16 @@ public class PlayerController : MonoBehaviour
 
     }
     #endregion
+    private void CheckState()
+    {
+        if (physicscheck.OnWall)
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y / 2);
+        else
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
+        if(wallJump && rb.velocity.y < 0)
+        {
+            wallJump = false;
+        }
+    }
 }
 

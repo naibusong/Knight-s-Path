@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PhysicsCheck : MonoBehaviour
 {
+    public PlayerController playerController;
+    private Rigidbody2D rb;
     public Vector2 bottomOffset;
     public Vector2 leftOffset;
     public Vector2 rightOffset;
@@ -13,6 +15,15 @@ public class PhysicsCheck : MonoBehaviour
     public bool isGround;
     public bool touLeftWall;
     public bool touRightWall;
+    public bool OnWall;
+    public bool isPlayer;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        if(isPlayer)
+            playerController = GetComponent<PlayerController>();
+    }
     private void Update()
     {
         Check();
@@ -24,6 +35,10 @@ public class PhysicsCheck : MonoBehaviour
         //Ç½±Ú¼ì²â
         touLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, checkRaduis, groundLayer);
         touRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, checkRaduis, groundLayer);
+        
+        //ÔÚÇ½±ÚÉÏ
+        if(isPlayer)
+            OnWall = (touLeftWall && playerController.inputDirection.x < 0f || touRightWall && playerController.inputDirection.x >0f) && rb.velocity.y <0;
     }
 
 
