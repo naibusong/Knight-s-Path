@@ -14,11 +14,13 @@ public class Character : MonoBehaviour
     public float untouchableCounter;//计时器
     public bool untouchable;//无敌状态
 
+    public UnityEvent<Character> OnHealthChange;
     public UnityEvent<Transform> OnTakeDamage;
     public UnityEvent OnDead;
     private void Start()
     {
         currentHealth = maxHealth;
+        OnHealthChange?.Invoke(this);
     }
 
     private void Update()
@@ -49,7 +51,7 @@ public class Character : MonoBehaviour
             currentHealth = 0;//角色死亡
             OnDead?.Invoke();
         }
-        
+        OnHealthChange?.Invoke(this);
     }
     private void TriggerUntouchable()//触发受伤无敌
     {
