@@ -73,12 +73,16 @@ public class PlayerController : MonoBehaviour
     private void Jump(InputAction.CallbackContext context)
     {
         //Debug.Log("jump");
-        if(physicscheck.isGround)
+        if (physicscheck.isGround)
+        {
             rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);//Ë²Ê±µÄÁ¦
+            GetComponent<AudioDefination>().PlayAudioClip();
+        }
         if (physicscheck.OnWall)
         {
             rb.AddForce(new Vector2(-inputDirection.x, 2.5f) * wallSlideForce, ForceMode2D.Impulse);
             wallJump = true;
+            GetComponent<AudioDefination>().PlayAudioClip();
         }
     }
 
