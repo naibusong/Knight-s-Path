@@ -5162,6 +5162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ea660e6a73a364bb9caa644a771ab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameSceneToGo: {fileID: 11400000, guid: df6c39429d75a294996a644d37a1e695, type: 2}
   PositionToGo: {x: -0.31, y: -15.99, z: 0}
 --- !u!61 &912798231
 BoxCollider2D:
