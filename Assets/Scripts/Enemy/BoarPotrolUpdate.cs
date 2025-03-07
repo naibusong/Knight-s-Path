@@ -11,7 +11,7 @@ public class BoarPotrolUpdate : BaseState
     }
     public override void LogicUpdate()
     {
-        //TODO 发现玩家后追击玩家
+        // 发现玩家后追击玩家
         if (currentEnemy.FoundPlayer())
         {
             currentEnemy.SwitchState(NPCState.Chase);

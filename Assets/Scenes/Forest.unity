@@ -10019,10 +10019,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 33.523132, y: 10.850905}
-      - {x: -22.670404, y: 11.279289}
-      - {x: -18.983952, y: -22.21275}
-      - {x: 34.72172, y: -21.863186}
+    - - {x: 27.032833, y: 8.644204}
+      - {x: -13.454176, y: 7.904333}
+      - {x: -13.142679, y: -22.082943}
+      - {x: 27.192978, y: -22.642021}
   m_UseDelaunayMesh: 0
 --- !u!4 &869640498
 Transform:
@@ -10328,13 +10328,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boar
       objectReference: {fileID: 0}
+    - target: {fileID: 255799702087523954, guid: 4ea2944c48611f045afc08d1bd1d7b3e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7340842735311418384, guid: 4ea2944c48611f045afc08d1bd1d7b3e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.8
       objectReference: {fileID: 0}
     - target: {fileID: 7340842735311418384, guid: 4ea2944c48611f045afc08d1bd1d7b3e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -15.77
+      value: -0.61
       objectReference: {fileID: 0}
     - target: {fileID: 7340842735311418384, guid: 4ea2944c48611f045afc08d1bd1d7b3e, type: 3}
       propertyPath: m_LocalPosition.z
