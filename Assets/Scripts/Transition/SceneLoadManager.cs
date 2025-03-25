@@ -20,6 +20,7 @@ public class SceneLoadManager : MonoBehaviour
     public ViewEventSO afterSceneLoadEvent;
     private GameSceneSO currentLoadScene;
     private GameSceneSO sceneToLoad;
+    public FadeEventSO fadeEvent;
     private Vector3 positionToGo;
     private bool fadeScene;
     public float fadeTime;
@@ -81,6 +82,7 @@ public class SceneLoadManager : MonoBehaviour
         if (fadeScene)
         {
             //实现渐入渐出
+            fadeEvent.FadeIn(fadeTime);
         }
         yield return new WaitForSeconds(fadeTime);
         currentLoadScene.sceneReference.UnLoadScene();//卸载
@@ -106,6 +108,7 @@ public class SceneLoadManager : MonoBehaviour
         if (fadeScene)
         {
             //TODO:
+            fadeEvent.FadeOut(fadeTime);
         }
         isLoading = false;
         afterSceneLoadEvent.RaiseEvent();
