@@ -12,15 +12,21 @@ public class SceneLoadManager : MonoBehaviour
 {
     public Vector3 firstPosition;
     public Transform playerTrans;
+    private SpriteRenderer playerRenderer;
     [Header("事件监听")]
     public SceneLoadEventSO loadEventSO;
-    public GameSceneSO firstLoadScene;
+    public ViewEventSO newGameEvent;
 
     [Header("广播")]
     public ViewEventSO afterSceneLoadEvent;
+    public FadeEventSO fadeEvent;
+    public SceneLoadEventSO unLoadedSceneEvent;
+
+    [Header("场景")]
+    public GameSceneSO firstLoadScene;
+    public GameSceneSO menuScene;
     private GameSceneSO currentLoadScene;
     private GameSceneSO sceneToLoad;
-    public FadeEventSO fadeEvent;
     private Vector3 positionToGo;
     private bool fadeScene;
     public float fadeTime;
@@ -31,18 +37,24 @@ public class SceneLoadManager : MonoBehaviour
         //Addressables.LoadSceneAsync(firstLoadScene.sceneReference, LoadSceneMode.Additive);
         //currentLoadScene = firstLoadScene;
         //currentLoadScene.sceneReference.LoadSceneAsync(LoadSceneMode.Additive);
+        playerRenderer = playerTrans.GetComponent<SpriteRenderer>();
     }
     private void Start()
     {
-        NewGamee();
+        OnLoadRequestEvent(menuScene, firstPosition, true);
+        playerRenderer.enabled = false;
+        //NewGamee();
     }
     private void OnEnable()
     {
         loadEventSO.LoadRequestEvent += OnLoadRequestEvent;
+        newGameEvent.OnEventRaised += NewGamee;
+        
     }
     private void OnDisable()
     {
         loadEventSO.LoadRequestEvent -= OnLoadRequestEvent;
+        newGameEvent.OnEventRaised -= NewGamee;
     }
 
     /// <summary>
@@ -56,6 +68,7 @@ public class SceneLoadManager : MonoBehaviour
     {
         sceneToLoad = firstLoadScene;
         OnLoadRequestEvent(sceneToLoad,firstPosition,true);
+        playerRenderer.enabled = true;
     }
 
     private void OnLoadRequestEvent(GameSceneSO locationToLoad, Vector3 posToGo, bool fadeScene)
@@ -84,7 +97,11 @@ public class SceneLoadManager : MonoBehaviour
             //实现渐入渐出
             fadeEvent.FadeIn(fadeTime);
         }
-        yield return new WaitForSeconds(fadeTime);
+        yield return new WaitForSeconds(fadeTime);//等待场景完全变黑
+
+        //广播事件调整血条显示
+        unLoadedSceneEvent.RaiseLoadRequestEvent(sceneToLoad, positionToGo, true);
+
         currentLoadScene.sceneReference.UnLoadScene();//卸载
         //关闭人物
         playerTrans.gameObject.SetActive(false);
@@ -112,5 +129,6 @@ public class SceneLoadManager : MonoBehaviour
         }
         isLoading = false;
         afterSceneLoadEvent.RaiseEvent();
+        
     }
 }
