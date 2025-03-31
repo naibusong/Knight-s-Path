@@ -1483,7 +1483,7 @@ MonoBehaviour:
   firstPosition: {x: 4.96, y: -0.67, z: 0}
   playerTrans: {fileID: 49777831}
   loadEventSO: {fileID: 11400000, guid: 9dafcebe4d2dadc44bd6e779a0eb4fa8, type: 2}
-  firstLoadScene: {fileID: 11400000, guid: df6c39429d75a294996a644d37a1e695, type: 2}
+  firstLoadScene: {fileID: 11400000, guid: f8eddc3733c639f41a54718d834315e4, type: 2}
   afterSceneLoadEvent: {fileID: 11400000, guid: 8a7ef7390591f0749b4cbe2b1bfceb0d, type: 2}
   fadeEvent: {fileID: 11400000, guid: f9a8614d4a605024aacc0621458a321d, type: 2}
   fadeTime: 1
@@ -2188,7 +2188,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2866,7 +2866,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 663, y: -86.10388}
+  m_AnchoredPosition: {x: 400, y: -86.10388}
   m_SizeDelta: {x: 1003.2102, y: 172.2078}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1660057539 &9223372036854775807
