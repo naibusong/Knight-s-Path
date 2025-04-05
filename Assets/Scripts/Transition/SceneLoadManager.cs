@@ -16,6 +16,7 @@ public class SceneLoadManager : MonoBehaviour
     [Header("事件监听")]
     public SceneLoadEventSO loadEventSO;
     public ViewEventSO newGameEvent;
+    public ViewEventSO backToMenuEvent;
 
     [Header("广播")]
     public ViewEventSO afterSceneLoadEvent;
@@ -31,6 +32,9 @@ public class SceneLoadManager : MonoBehaviour
     private bool fadeScene;
     public float fadeTime;
     private bool isLoading;
+
+    [Header("组件")]
+    public GameObject gameOverPanel;
 
     private void Awake()
     {
@@ -49,12 +53,22 @@ public class SceneLoadManager : MonoBehaviour
     {
         loadEventSO.LoadRequestEvent += OnLoadRequestEvent;
         newGameEvent.OnEventRaised += NewGamee;
-        
+        backToMenuEvent.OnEventRaised += OnBackToMenuEvent;
+
+
     }
     private void OnDisable()
     {
         loadEventSO.LoadRequestEvent -= OnLoadRequestEvent;
         newGameEvent.OnEventRaised -= NewGamee;
+        backToMenuEvent.OnEventRaised += OnBackToMenuEvent;
+    }
+
+    private void OnBackToMenuEvent()
+    {
+        sceneToLoad = menuScene;
+        gameOverPanel.SetActive(false);
+        loadEventSO.RaiseLoadRequestEvent(sceneToLoad, firstPosition, true);
     }
 
     /// <summary>

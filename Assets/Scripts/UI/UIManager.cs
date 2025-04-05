@@ -2,27 +2,42 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
     public PlayerStateBar playerStateBar;
     [Header("事件监听")]
     public CharacterEventSO healthEvent;
-    public SceneLoadEventSO loadEvent;
+    public SceneLoadEventSO unloadedSceneEvent;
+    public ViewEventSO gameOverEvent;
+    public ViewEventSO backToMenuEvent;
+
+    [Header("组件")]
+    public GameObject gameOverPanel;
+    public GameObject backToMenuBtn;
 
     private void OnEnable()
     {
         healthEvent.OnEventRaised += OnHealthEvent;//注册事件
-        loadEvent.LoadRequestEvent += OnLoadEvent;
+        unloadedSceneEvent.LoadRequestEvent += OnUnLoadedSceneEvent;
+        gameOverEvent.OnEventRaised += OnGameOverEvent;
     }
 
 
     private void OnDisable()
     {
         healthEvent.OnEventRaised -= OnHealthEvent;//注销事件
-        loadEvent.LoadRequestEvent -= OnLoadEvent;
+        unloadedSceneEvent.LoadRequestEvent -= OnUnLoadedSceneEvent;
+        gameOverEvent.OnEventRaised -= OnGameOverEvent;
     }
-    private void OnLoadEvent(GameSceneSO sceneToLoad, Vector3 arg1, bool arg2)
+
+    private void OnGameOverEvent()
+    {
+        gameOverPanel.SetActive(true);
+    }
+
+    private void OnUnLoadedSceneEvent(GameSceneSO sceneToLoad, Vector3 arg1, bool arg2)
     {
         if(sceneToLoad.sceneType == SceneType.Menu)
         {
