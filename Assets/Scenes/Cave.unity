@@ -231,6 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a0a62001bb2a2f46a0059f4330faccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newGameEvent: {fileID: 0}
   maxHealth: 100
   currentHealth: 0
   untouchableTime: 1
@@ -5132,6 +5133,7 @@ MonoBehaviour:
   openSprite: {fileID: 1025740856, guid: 5d33c82befa2881439b887373d0515d9, type: 3}
   closeSprite: {fileID: -613253652, guid: 5d33c82befa2881439b887373d0515d9, type: 3}
   isDone: 0
+  victoryEvent: {fileID: 11400000, guid: 9f99588e97933fe47a25de6578747096, type: 2}
 --- !u!1 &912798229
 GameObject:
   m_ObjectHideFlags: 0
@@ -5290,8 +5292,8 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 14.127106, y: -4.4491773}
-      - {x: -19.917023, y: -4.508465}
-      - {x: -19.97371, y: -22.078817}
+      - {x: -16.461008, y: -3.9812756}
+      - {x: -16.459116, y: -22.371702}
       - {x: 14.437546, y: -21.94237}
   m_UseDelaunayMesh: 0
 --- !u!4 &919187636

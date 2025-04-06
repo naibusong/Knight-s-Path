@@ -19,6 +19,10 @@ public class Character : MonoBehaviour
     public UnityEvent<Character> OnHealthChange;
     public UnityEvent<Transform> OnTakeDamage;
     public UnityEvent OnDead;
+    private void Awake()
+    {
+        NewGame();
+    }
     private void NewGame()
     {
         currentHealth = maxHealth;
@@ -47,7 +51,7 @@ public class Character : MonoBehaviour
     }
     public void TakeDamege(Attack attaker)
     {
-        //Debug.Log(attaker.damage);
+        Debug.Log(attaker.damage);
         if (untouchable)
             return;
         if (currentHealth - attaker.damage > 0)

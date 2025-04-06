@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     public ViewEventSO gameOverEvent;
     public ViewEventSO backToMenuEvent;
     public FloatEventSO syncVolumeEvent;
+    public ViewEventSO victoryEvent;
 
     [Header("¹ã²¥")]
     public ViewEventSO pauseEvent;
@@ -21,6 +22,7 @@ public class UIManager : MonoBehaviour
     [Header("×é¼þ")]
     public GameObject gameOverPanel;
     public GameObject backToMenuBtn;
+    public GameObject victoryPanel;
     public GameObject pausePanel;
     public Button settingBtn;
     public Slider volumeSlider;
@@ -51,6 +53,7 @@ public class UIManager : MonoBehaviour
         unloadedSceneEvent.LoadRequestEvent += OnUnLoadedSceneEvent;
         gameOverEvent.OnEventRaised += OnGameOverEvent;
         syncVolumeEvent.OnEventRaised += OnSyncVolumeEvent;
+        victoryEvent.OnEventRaised += OnVictoryEvent;
     }
 
 
@@ -60,6 +63,12 @@ public class UIManager : MonoBehaviour
         unloadedSceneEvent.LoadRequestEvent -= OnUnLoadedSceneEvent;
         gameOverEvent.OnEventRaised -= OnGameOverEvent;
         syncVolumeEvent.OnEventRaised -= OnSyncVolumeEvent;
+        victoryEvent.OnEventRaised -= OnVictoryEvent;
+    }
+
+    private void OnVictoryEvent()
+    {
+        victoryPanel.SetActive(true);
     }
 
     private void OnSyncVolumeEvent(float amount)

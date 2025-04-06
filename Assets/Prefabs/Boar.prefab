@@ -24,7 +24,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7340842735311418384
 Transform:
   m_ObjectHideFlags: 0
@@ -151,7 +151,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -197,12 +197,12 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.14838284, y: 0.63654387}
-  m_Size: {x: 2.0152445, y: 1.2731103}
+  m_Offset: {x: -0.06, y: 0.63654387}
+  m_Size: {x: 2.52, y: 1.2731103}
   m_Direction: 1
 --- !u!95 &8308381192693947923
 Animator:
@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newGameEvent: {fileID: 11400000, guid: 4ab549541fd80974c93af42f17c2030a, type: 2}
-  maxHealth: 100
+  maxHealth: 50
   currentHealth: 0
   untouchableTime: 1
   untouchableCounter: 0
@@ -353,12 +353,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
   bottomOffset: {x: -1.05, y: -0.1}
-  leftOffset: {x: 0.82, y: 0.64}
-  rightOffset: {x: -1.15, y: 0.63}
+  leftOffset: {x: 1.37, y: 0.64}
+  rightOffset: {x: -1.52, y: 0.63}
   checkRaduis: 0.08
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   isGround: 0
   touLeftWall: 0
   touRightWall: 0

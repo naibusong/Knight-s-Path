@@ -9,6 +9,9 @@ public class Cheat : MonoBehaviour,IInteractable
     public Sprite closeSprite;
     public bool isDone;
 
+    [Header("¹ã²¥")]
+    public ViewEventSO victoryEvent;
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -24,6 +27,7 @@ public class Cheat : MonoBehaviour,IInteractable
         {
             OpenChest();
         }
+        victoryEvent.RaiseEvent();
     }
 
     private void OpenChest()

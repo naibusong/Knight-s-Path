@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.InputSystem.iOS;
 using UnityEngine.SceneManagement;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
@@ -35,6 +34,7 @@ public class SceneLoadManager : MonoBehaviour
 
     [Header("×é¼þ")]
     public GameObject gameOverPanel;
+    public GameObject victoryPanel;
 
     private void Awake()
     {
@@ -68,6 +68,7 @@ public class SceneLoadManager : MonoBehaviour
     {
         sceneToLoad = menuScene;
         gameOverPanel.SetActive(false);
+        victoryPanel.SetActive(false);
         loadEventSO.RaiseLoadRequestEvent(sceneToLoad, firstPosition, true);
     }
 
@@ -143,6 +144,7 @@ public class SceneLoadManager : MonoBehaviour
         }
         isLoading = false;
         afterSceneLoadEvent.RaiseEvent();
-        
+        //2025.4.6 add
+        //newGameEvent.RaiseEvent();
     }
 }
